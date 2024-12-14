@@ -16,7 +16,7 @@ requirements = ["torch>=1.4"]
 
 exec(open(osp.join("pointnet2_ops", "_version.py")).read())
 
-os.environ["TORCH_CUDA_ARCH_LIST"] = "3.7+PTX;5.0;6.0;6.1;6.2;7.0;7.5"
+os.environ["TORCH_CUDA_ARCH_LIST"] = "5.0;6.0;6.1;6.2;7.0;7.5;8.0;8.6;8.9;9.0"
 setup(
     name="pointnet2_ops",
     version=__version__,
@@ -34,6 +34,6 @@ setup(
             include_dirs=[osp.join(this_dir, _ext_src_root, "include")],
         )
     ],
-    cmdclass={"build_ext": BuildExtension},
+    cmdclass={"build_ext": BuildExtension.with_options(use_ninja=False)},
     include_package_data=True,
 )
